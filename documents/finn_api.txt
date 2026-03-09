@@ -1,0 +1,207 @@
+Finnhub API 接口说明报告
+1. API 概述
+
+Finnhub API 提供机构级金融市场数据，面向开发者、量化交易者和金融科技应用。主要提供实时行情、基本面数据、新闻、宏观经济指标及另类数据等。
+
+主要特点
+
+全球股票实时行情
+
+公司基本面数据
+
+新闻与情绪分析
+
+宏观经济数据
+
+多资产支持（股票、外汇、加密货币等）
+
+请求方式
+
+GET https://finnhub.io/api/v1/{endpoint}?token=API_KEY
+
+认证
+
+token=YOUR_API_KEY
+2. API 数据分类
+
+Finnhub API 按数据类型划分多个模块。
+
+2.1 股票市场（Stock API）
+
+提供股票行情与公司基本面数据。
+
+常用接口：
+
+接口	功能
+/quote	获取股票实时价格
+/stock/candle	获取K线数据
+/stock/profile	获取公司基本信息
+/stock/metric	获取公司财务指标
+/stock/peers	获取同行公司
+/stock/recommendation	分析师评级
+/stock/earnings	公司财报
+/stock/dividend	分红信息
+
+示例：
+
+GET /quote?symbol=AAPL
+
+返回示例：
+
+{
+ "c": 189.32,
+ "h": 190.10,
+ "l": 187.45,
+ "o": 188.00
+}
+2.2 新闻数据（News API）
+
+提供市场新闻与公司相关新闻。
+
+常用接口：
+
+接口	功能
+/news	市场新闻
+/company-news	公司相关新闻
+/news-sentiment	新闻情绪分析
+
+示例：
+
+GET /company-news?symbol=TSLA&from=2024-01-01&to=2024-01-10
+
+返回内容：
+
+新闻标题
+
+发布时间
+
+来源
+
+摘要
+
+2.3 技术指标（Technical Indicator API）
+
+用于量化分析与技术分析。
+
+常用接口：
+
+接口	功能
+/indicator	技术指标
+/scan/pattern	技术形态扫描
+/scan/support-resistance	支撑阻力位
+
+支持指标示例：
+
+SMA
+
+EMA
+
+RSI
+
+MACD
+
+Bollinger Bands
+
+示例：
+
+GET /indicator?symbol=AAPL&indicator=rsi
+2.4 加密货币（Crypto API）
+
+提供数字货币行情数据。
+
+常用接口：
+
+接口	功能
+/crypto/symbol	加密货币交易对
+/crypto/candle	K线数据
+/crypto/profile	项目资料
+
+示例：
+
+GET /crypto/candle?symbol=BINANCE:BTCUSDT
+2.5 外汇（Forex API）
+
+提供全球外汇市场数据。
+
+接口：
+
+接口	功能
+/forex/symbol	外汇交易对
+/forex/candle	外汇K线
+/forex/exchange	外汇交易所
+
+示例：
+
+GET /forex/symbol
+2.6 ETF 与基金
+
+提供 ETF 和共同基金信息。
+
+接口：
+
+接口	功能
+/etf/profile	ETF信息
+/etf/holdings	ETF持仓
+/mutual-fund/profile	基金信息
+2.7 债券数据（Bond API）
+
+支持债券市场数据：
+
+接口	功能
+/bond/profile	债券基本信息
+/bond/price	债券价格
+/bond/yield	收益率曲线
+2.8 宏观经济数据（Economic API）
+
+提供国家级宏观指标。
+
+接口：
+
+接口	功能
+/economic-data	宏观经济指标
+/economic-calendar	经济事件
+
+示例：
+
+GET /economic-data?code=MA-USA-656880
+2.9 日历数据（Calendar API）
+
+提供金融事件时间表。
+
+接口：
+
+接口	功能
+/calendar/earnings	财报日历
+/calendar/ipo	IPO日历
+/calendar/economic	经济事件
+2.10 其他辅助接口（Misc）
+
+工具型接口：
+
+接口	功能
+/search	股票搜索
+/country	国家列表
+/stock/symbol	股票列表
+/sector/metrics	行业指标
+3. WebSocket 实时数据
+
+Finnhub 提供 WebSocket 用于实时行情推送。
+
+连接地址：
+
+wss://ws.finnhub.io?token=API_KEY
+
+订阅示例：
+
+{
+ "type": "subscribe",
+ "symbol": "AAPL"
+}
+
+返回数据：
+
+实时价格
+
+成交量
+
+时间戳

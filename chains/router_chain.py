@@ -12,7 +12,7 @@ class RouteQuery(BaseModel):
     datasource: Literal["vector_store", "web_search", "direct_chat"] = Field(
         description=(
             "Decision path: 'vector_store' for company-specific filings/news; "
-            "'web_search' for macro/industry/real-time topics; "
+            "'web_search' for macro/industry/policy/real-time topics; "
             "'direct_chat' for greeting/small talk."
         )
     )
@@ -23,10 +23,11 @@ SYSTEM_PROMPT = """
 You are a financial query router.
 
 Rules:
-1) If the user asks about a specific listed company, set datasource=vector_store and extract ticker symbol.
-2) If the user asks about macro, policy, sectors, or broad market trends, set datasource=web_search.
-3) If the user is chatting/greeting and does not require external data, set datasource=direct_chat.
+1) For specific listed companies (earnings, filings, company news), set datasource=vector_store and extract ticker.
+2) For macro/industry/policy topics (rates, inflation, GDP, regulation, sector-wide trends), set datasource=web_search.
+3) For casual chat/greeting without data need, set datasource=direct_chat.
 4) symbol must be uppercase ticker (e.g., AAPL) or empty string.
+5) Never output values outside: vector_store | web_search | direct_chat.
 """.strip()
 
 
