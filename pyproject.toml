@@ -1,0 +1,52 @@
+[project]
+name = "rag-financial-intelligence"
+version = "0.1.0"
+description = "Financial intelligence RAG app using Milvus, Finnhub, web search, and local financial disclosure data."
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "langgraph>=0.2.50",
+    "langchain>=0.3.0",
+    "langchain-openai>=0.2.0",
+    "langchain-community>=0.3.0",
+    "tavily-python>=0.5.0",
+    "python-dotenv>=1.0.1",
+    "finnhub-python>=2.4.22",
+    "pandas>=2.2.2",
+    "torch==2.7.1",
+    "torchvision==0.22.1",
+    "torchaudio==2.7.1",
+    "pydantic>=2.10.6",
+    "mcp>=1.0.0",
+    "pymilvus>=2.4.0",
+    "sentence-transformers>=3.0.0",
+    "numpy>=1.26.0",
+    "marker-pdf>=1.10.2,<2.0.0",
+    "tqdm>=4.66.0",
+    "opendataloader-pdf>=2.4.2",
+    "huggingface-hub>=0.24.0",
+    "llama-cpp-python[server]==0.3.4",
+    "fastapi>=0.112.0,<0.115.0",
+    "starlette>=0.37.2,<0.39.0",
+    "uvicorn>=0.30.0,<0.31.0",
+    "sse-starlette>=2.1.0,<2.2.0",
+]
+
+[tool.uv]
+package = false
+cache-dir = ".codex-uv-cache"
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu118" }
+torchvision = { index = "pytorch-cu118" }
+torchaudio = { index = "pytorch-cu118" }
+llama-cpp-python = { index = "llama-cpp-cu123" }
+
+[[tool.uv.index]]
+name = "pytorch-cu118"
+url = "https://download.pytorch.org/whl/cu118"
+explicit = true
+
+[[tool.uv.index]]
+name = "llama-cpp-cu123"
+url = "https://abetlen.github.io/llama-cpp-python/whl/cu123"
+explicit = true

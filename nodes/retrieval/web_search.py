@@ -5,6 +5,8 @@ from langchain_community.tools.tavily_search import TavilySearchResults
 from langchain_core.documents import Document
 from langchain_openai import ChatOpenAI
 
+from nodes.evidence.evidence_utils import document_to_evidence, extend_evidence
+
 
 def _as_text(value: Any) -> str:
     if isinstance(value, str):
@@ -48,6 +50,37 @@ def web_search_node(state):
         content = item.get("content") or item.get("snippet") or ""
         url = item.get("url", "")
         if content:
-            docs.append(Document(page_content=content, metadata={"source": url}))
+            docs.append(
+                Document(
+                    page_content=content,
+                    metadata={"source": url, "retrieval_source": "Web Search"},
+                )
+            )
 
-    return {"documents": docs, "web_search": "No", "active_question": query}
+    new_docs = docs[len(state.get("documents", [])) :]
+    evidence = [
+        document_to_evidence(doc, source_type="web", source_name="Web Search", default_score=1.0)
+        for doc in new_docs
+    ]
+
+    retrieval_path = list(state.get("retrieval_path", []))
+    retrieval_path.append("web_search")
+
+    return {
+        "documents": docs,
+        "evidence_candidates": extend_evidence(state, evidence),
+        "web_search": "No",
+        "active_question": query,
+        "last_action": "web_search",
+        "status": "success" if docs else "failed",
+        "retrieval_source": "Web Search" if docs else "",
+        "retrieval_score": 1.0 if docs else 0.0,
+        "retrieval_path": retrieval_path,
+        "retrieval": {
+            "evidence_candidates": extend_evidence(state, evidence),
+            "retrieval_source": "Web Search" if docs else "",
+            "retrieval_score": 1.0 if docs else 0.0,
+            "retrieval_path": retrieval_path,
+            "retrieval_failures": state.get("retrieval_failures", []),
+        },
+    }

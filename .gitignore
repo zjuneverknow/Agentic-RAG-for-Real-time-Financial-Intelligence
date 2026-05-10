@@ -1,2 +1,56 @@
-__pycache__
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments and uv
+.venv/
+venv/
+env/
+.uv-cache/
+
+# Local configuration and secrets
 .env
+.env.*
+!.env.example
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs and runtime outputs
+logs/
+*.log
+tmp/
+temp/
+
+# Local documents and generated data
+documents/
+data/
+*.sqlite
+*.sqlite3
+*.db
+
+# Nested financial database construction outputs
+financial database construction/data/
+financial database construction/logs/
+financial database construction/output/
+financial database construction/outputs/
+financial database construction/.uv-cache/
+financial database construction/.venv/
+
+# Local tool/vendor folders
+claude-code-main/
+.codex-uv-cache/
+runs/
+.hf-cache/
+model/
+models/
+.cache/

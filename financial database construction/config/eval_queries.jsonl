@@ -1,0 +1,3 @@
+{"question":"宁德时代 2026 一季度归母净利润是多少？","positive_contexts":["300750_2026_q1_000015"],"metadata_filter":{"code":"300750","year":2026,"report_type":"q1","chunk_type":"financial_statement"}}
+{"question":"宁德时代 2026 一季度营业收入是多少？","positive_contexts":["300750_2026_q1_000014"],"metadata_filter":{"code":"300750","year":2026,"report_type":"q1","chunk_type":"financial_statement"}}
+{"question":"宁德时代 2026 一季度货币资金是多少？","positive_contexts":["300750_2026_q1_000011"],"metadata_filter":{"code":"300750","year":2026,"report_type":"q1","chunk_type":"financial_statement"}}
